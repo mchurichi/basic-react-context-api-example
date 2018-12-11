@@ -1,26 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Parent from './Parent';
+import AppContext from './AppContext';
+
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    value: 0,
+  }
+
+  sumar = () => {
+    this.setState({
+      value: this.state.value + 1
+    });
+  }
+
   render() {
+    const context = {
+      value: this.state.value,
+      sumar: this.sumar
+    };
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <AppContext.Provider value={context}>
+        <div className="App">
+          <Parent />
+        </div>
+      </AppContext.Provider>
     );
   }
 }
